@@ -1,0 +1,10 @@
+(function layoutModule() {
+  try {
+    const cart = JSON.parse(localStorage.getItem('eg_shop_cart') || '[]');
+    const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+    const badge = document.getElementById('cart-count');
+    if (badge) badge.textContent = String(count);
+  } catch (error) {
+    console.error('No se pudo cargar el carrito', error);
+  }
+})();
