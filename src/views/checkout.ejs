@@ -1,0 +1,47 @@
+<%- include('partials/header', { title }) %>
+<h1>Checkout</h1>
+<section class="checkout-grid">
+  <form id="checkout-form" class="card" novalidate>
+    <div class="field-group">
+      <label for="fullName">Nombre completo</label>
+      <input id="fullName" name="fullName" type="text" required minlength="5" maxlength="150">
+      <small class="field-error" data-field-error="fullName"></small>
+    </div>
+    <div class="field-group">
+      <label for="email">Correo electrónico</label>
+      <input id="email" name="email" type="email" required>
+      <small class="field-error" data-field-error="email"></small>
+    </div>
+    <div class="field-group">
+      <label for="phone">Teléfono</label>
+      <input id="phone" name="phone" type="tel" required minlength="7" maxlength="30">
+      <small class="field-error" data-field-error="phone"></small>
+    </div>
+    <div class="field-group">
+      <label for="address">Dirección</label>
+      <input id="address" name="address" type="text" required minlength="5" maxlength="220">
+      <small class="field-error" data-field-error="address"></small>
+    </div>
+    <div class="field-group">
+      <label for="city">Ciudad o sector</label>
+      <input id="city" name="city" type="text" required minlength="2" maxlength="100">
+      <small class="field-error" data-field-error="city"></small>
+    </div>
+    <div class="field-group">
+      <label for="locationReference">Referencia de ubicación (opcional)</label>
+      <input id="locationReference" name="locationReference" type="text" maxlength="240">
+    </div>
+    <div class="form-inline">
+      <button id="confirm-order" class="btn" type="submit">Confirmar pedido</button>
+      <a class="btn secondary" href="/carrito">Volver al carrito</a>
+    </div>
+    <p id="checkout-feedback" class="feedback" aria-live="polite"></p>
+  </form>
+
+  <aside class="card">
+    <h2>Resumen del pedido</h2>
+    <div id="checkout-summary"></div>
+  </aside>
+</section>
+<script src="/js/checkout.js"></script>
+<%- include('partials/footer') %>

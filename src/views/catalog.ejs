@@ -1,0 +1,51 @@
+<%- include('partials/header', { title }) %>
+<section class="hero">
+  <h1>Catálogo de productos</h1>
+  <p>Explora productos reales de E&G Comercial y agrégalos a tu carrito.</p>
+</section>
+
+<section class="controls card">
+  <div class="field-group">
+    <label for="search-input">Buscar por nombre</label>
+    <input id="search-input" type="search" placeholder="Ej. Audífonos" autocomplete="off">
+  </div>
+  <div class="field-group checkbox">
+    <input id="only-stock" type="checkbox">
+    <label for="only-stock">Mostrar solo con stock</label>
+  </div>
+</section>
+
+<% const formatDop = (value) => new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP' }).format(value); %>
+
+<section id="catalog-grid" class="grid">
+  <% if (!products.length) { %>
+    <article class="card empty-state">No hay productos disponibles por el momento.</article>
+  <% } %>
+  <% products.forEach((product) => { %>
+    <article class="card product-card" data-name="<%= product.name.toLowerCase() %>" data-stock="<%= product.stock %>">
+      <img src="<%= product.image_url || '/images/product-placeholder.svg' %>" alt="Imagen de <%= product.name %>" loading="lazy">
+      <h2><%= product.name %></h2>
+      <p class="description"><%= product.description.slice(0, 95) %><%= product.description.length > 95 ? '...' : '' %></p>
+      <p class="price"><%= formatDop(product.price) %></p>
+      <p class="stock">Stock: <strong><%= product.stock %></strong></p>
+      <div class="card-actions">
+        <a class="btn secondary" href="/productos/<%= product.id %>">Ver detalle</a>
+        <button
+          class="btn add-to-cart"
+          type="button"
+          data-product-id="<%= product.id %>"
+          data-product-name="<%= product.name %>"
+          data-product-price="<%= product.price %>"
+          data-product-stock="<%= product.stock %>"
+          data-product-image="<%= product.image_url || '/images/product-placeholder.svg' %>"
+          <%= product.stock === 0 ? 'disabled' : '' %>
+        >Agregar al carrito</button>
+      </div>
+    </article>
+  <% }) %>
+</section>
+
+<p id="catalog-message" class="feedback" aria-live="polite"></p>
+
+<script src="/js/catalog.js"></script>
+<%- include('partials/footer') %>
