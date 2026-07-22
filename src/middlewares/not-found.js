@@ -1,4 +1,5 @@
-const notFound = (req, res, _next) => {
+const notFound = (req, res, next) => {
+  void next;
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({
       success: false,

@@ -27,18 +27,17 @@ services:
     environment:
       NODE_ENV: development
       PORT: 3000
-      DB_HOST: db
+      DB_HOST: 127.0.0.1
       DB_PORT: 5432
       DB_NAME: ${DB_NAME:-eg_shop_db}
       DB_USER: ${DB_USER:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
-      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-eg_shop_db}
-    ports:
-      - "3000:3000"
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@127.0.0.1:5432/${DB_NAME:-eg_shop_db}
     volumes:
       - ./:/app
       - /app/node_modules
     command: npm run dev
+    network_mode: host
 
 volumes:
   pg_data:
