@@ -1,0 +1,29 @@
+<%- include('partials/header', { title }) %>
+<% const formatDop = (value) => new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP' }).format(value); %>
+<article class="card detail-card">
+  <img src="<%= product.image_url || '/images/product-placeholder.svg' %>" alt="Imagen de <%= product.name %>">
+  <div>
+    <h1><%= product.name %></h1>
+    <p><%= product.description %></p>
+    <p class="price"><%= formatDop(product.price) %></p>
+    <p>Stock disponible: <strong id="available-stock"><%= product.stock %></strong></p>
+    <form id="detail-cart-form" class="form-inline">
+      <label for="quantity">Cantidad</label>
+      <input id="quantity" name="quantity" type="number" min="1" max="<%= product.stock %>" value="1" required>
+      <button
+        class="btn"
+        type="submit"
+        data-product-id="<%= product.id %>"
+        data-product-name="<%= product.name %>"
+        data-product-price="<%= product.price %>"
+        data-product-stock="<%= product.stock %>"
+        data-product-image="<%= product.image_url || '/images/product-placeholder.svg' %>"
+        <%= product.stock === 0 ? 'disabled' : '' %>
+      >Agregar al carrito</button>
+    </form>
+    <p id="detail-message" class="feedback" aria-live="polite"></p>
+    <a class="btn secondary" href="/">Volver al catálogo</a>
+  </div>
+</article>
+<script src="/js/catalog.js"></script>
+<%- include('partials/footer') %>
